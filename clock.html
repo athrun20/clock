@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<title>Clock</title>
+	<head>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	</head>
+	<body>
+		<div id="clock"></div>
+		<script>
+		
+			$(document).ready(function(){
+​		//This is used to load the javascript after the html.
+				function getTime() {
+				//to set up the function.
+	
+					var date = new Date();
+					var h = date.getHours();
+					var m = date.getMinutes();
+					var s = date.getSeconds();
+					var ms = date.getMilliseconds();
+​
+					h = noMilitaryTime(h);
+					//this is created to control the standard time that makes the function.
+
+					h = formatValue(h);
+​
+					// format m and s correctly
+					m = formatValue(m);
+					s = formatValue(s);
+					//this is created to control the seconds and minutes that makes the function.
+​
+					changeColor(m);
+					changeSize(m);
+					colorChangeAgain(m);
+​
+​
+					$("#clock").html(h + ":" + m + ":" + s + ":" + ms);
+					//$("#clock") is Jquery. It selects the id in the div. Then the string is use to post the time on the console. ":" is use to create space between the numbers.
+​
+					setTimeout(getTime, 1000);
+						// setTimeout is a function that repeatedly calls another function. It takes two arguments within the parenthesis. 1000 millseconds is one second.
+				}; 
+​
+				function noMilitaryTime(value) {
+					if (value > 12) {
+						return value - 12;
+						} else {
+						return value;
+						}
+				};
+				//this function is created to make standard time. Instead of military time that it starts with.
+​
+				function formatValue(value)	{
+					if (value < 10) {
+						return "0" + value;
+					} else{
+					return value;
+					}
+				};
+				//this function is created to start the clock at 1 second instead of 0 second. This needs to know seconds
+​
+				getTime();
+​
+				function changeColor(value) {
+					if (value % 2 !== 0) {
+						return $("body").css("background-color", "green");
+					} else {
+						return $("body").css("background-color", "lightblue");
+					}
+				};
+				//to change the color of the body
+​
+				function changeSize(value) {
+					if (value % 5 === 0) {
+						return $("body").css("font-size", "36px");
+					} else {
+						return $("body").css("font-size", "72px");				
+					}
+					//change fontsize from 36px to 72px
+​
+					setTimeout(changeSize, 50000)
+				};
+​
+				
+				function colorChangeAgain(value){
+					if (value === "00") {
+						return $("body").css("color", "blue");
+					} else {
+						return $("body").css("color", "purple");
+					}
+​					//changes color again
+					setInterval(colorChangeAgain, 360000);
+					//calls a function or evaluates an expression at specified intervals (in milliseconds).
+​
+				};
+​
+			});
+​
+		</script>
+	</body>
+</html>
